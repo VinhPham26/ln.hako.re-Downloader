@@ -6,7 +6,7 @@ const fs = require('fs');
     const page = await browser.newPage();
     await page.setViewport({ width: 360, height: 740, deviceScaleFactor: 2, isMobile: true });  //viewport for samsung s8
     //set device scale to 1 fix the white in some image
-    await page.goto("https://ln.hako.re/truyen/7278-another-monster");   //go to the serie main page
+    await page.goto("https://ln.hako.re/truyen/3285-youkoso-jitsuryoku-shijou-shugi-no-kyoushitsu-e");   //go to the serie main page
 
     // //turn on night mode of the site
     await page.click('#guest-menu');
@@ -36,7 +36,7 @@ const fs = require('fs');
     });
 
     for await (const volume of volumes) {
-        let volumeName = volume.title.replace(/[|&;?:$%@/"<>()+*,]/g, ""); //remove illegal character for file name
+        let volumeName = volume.title.replace(/[|&;?:$%@/"<>()+*,]/g, "").trim(); //remove illegal character for file name
         //Create folder with volume name
         fs.mkdirSync(`${serie}/${volumeName}`, { recursive: true })
         await page.goto(volume.link)
@@ -71,5 +71,6 @@ const fs = require('fs');
             }
         }
     }
+
     await browser.close()
 })();
